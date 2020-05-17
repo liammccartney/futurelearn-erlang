@@ -25,17 +25,13 @@ fib(N, P, Q) ->
 % (Perfect: when a positive integer is the sum of its divisors)
 % (e.g. 6 = 1 + 2 + 3, 28 = 1 + 2 + 4 + 7 + 14)
 perfect(N) ->
-  perfect(N, 1, []).
+  perfect(N, 1, 0).
 
-perfect(N, PossibleDivisor, Divisors) -> 
-  Sum = lists:sum(Divisors),
-  if 
-    Sum == N ->
-      true;
-    Sum > N ->
-      false;
-    N rem PossibleDivisor == 0 ->
-      perfect(N, PossibleDivisor + 1,[PossibleDivisor | Divisors]);
-    true ->
-      perfect(N, PossibleDivisor + 1, Divisors)
-  end.
+perfect(N, _, N) ->
+  true;
+
+perfect(N, P, Sum) when N rem P == 0 ->
+  perfect(N, P + 1, Sum + P);
+
+perfect(N, P, Sum) ->
+  perfect(N, P + 1, Sum).

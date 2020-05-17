@@ -13,13 +13,13 @@ sum(N, P) ->
 
 % Fibonacci, Tail Recursive
 fib(N) ->
-  fib(N - 1, 0, 1).
+  fib(N, 0, 1).
 
-fib(0, _P, Q) ->
-  Q;
+fib(0, Curr, _Next) ->
+  Curr;
 
-fib(N, P, Q) ->
-  fib(N - 1, Q, P + Q).
+fib(N, Curr, Next) ->
+  fib(N - 1, Next, Curr + Next).
 
 % Perfect Number, Tail Recursive
 % (Perfect: when a positive integer is the sum of its divisors)
@@ -27,8 +27,8 @@ fib(N, P, Q) ->
 perfect(N) ->
   perfect(N, 1, 0).
 
-perfect(N, _, N) ->
-  true;
+perfect(N, N, Sum) ->
+  N == Sum;
 
 perfect(N, P, Sum) when N rem P == 0 ->
   perfect(N, P + 1, Sum + P);
